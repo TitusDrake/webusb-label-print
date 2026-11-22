@@ -85,12 +85,14 @@ export class LabelPrinter {
     const supported = adapter.device.key === TARGET_DEVICE.key;
     let firmware: string | undefined;
     let sku: SkuInfo | undefined;
+    // Status first: on a fresh connection the 550 did not report the roll until after a print,
+    // which starts with a status query (seen on macOS and ChromeOS, 2026-11-22).
+    const status = await adapter.getStatus();
     if (adapter.engine.protocol === 'lw5-raster') {
       const version: EngineVersion | undefined = await adapter.getEngineVersion().catch(() => undefined);
       firmware = version ? `${version.fwMajor}.${version.fwMinor}` : undefined;
       sku = await this.readRoll(adapter);
     }
-    const status = await adapter.getStatus();
     return {
       model: adapter.model,
       ...(firmware ? { firmware } : {}),
@@ -101,11 +103,12 @@ export class LabelPrinter {
   }
 
   /**
-   * ESC U, tried twice. The driver returns undefined for a short or unrecognised reply; log why so
+   * ESC U, tried up to three times with a short pause. The driver returns undefined for a short or unrecognised reply; log why so
    * a failed read on real hardware can be diagnosed (roll data only, no label content).
    */
   private async readRoll(adapter: WebLabelWriterPrinter): Promise<SkuInfo | undefined> {
-    for (let attempt = 1; attempt <= 2; attempt++) {
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      if (attempt > 1) await new Promise(resolve => setTimeout(resolve, 500));
       try {
         const sku = await quietPaddedReply(() => adapter.getMedia());
         if (sku) {

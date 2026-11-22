@@ -56,6 +56,55 @@ main {
   gap: 12px;
 }
 
+/*
+ * Narrow window: one column, Print pinned to the bottom so it is never off screen.
+ * Wide window (Chromebook landscape): preview on the left, printer + Print on the right, so
+ * everything fits without scrolling.
+ */
+.print-card {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  box-shadow: 0 -4px 12px rgb(0 0 0 / 0.12);
+}
+
+@media (min-width: 900px) {
+  main {
+    max-width: 1080px;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-areas:
+      'title title'
+      'labels printer'
+      'labels print'
+      'labels settings'
+      'labels .';
+    grid-template-rows: auto auto auto auto 1fr;
+    align-items: start;
+  }
+
+  h1 {
+    grid-area: title;
+  }
+
+  .labels-card {
+    grid-area: labels;
+  }
+
+  .printer-card {
+    grid-area: printer;
+  }
+
+  .print-card {
+    grid-area: print;
+    position: static;
+    box-shadow: none;
+  }
+
+  .settings-card {
+    grid-area: settings;
+  }
+}
+
 h1 {
   font-size: 1.4rem;
   margin: 4px 0;

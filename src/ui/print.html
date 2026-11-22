@@ -11,7 +11,7 @@
     <main>
       <h1>Label Printer</h1>
 
-      <section aria-labelledby="printer-heading" class="card">
+      <section aria-labelledby="printer-heading" class="card printer-card">
         <h2 id="printer-heading">Printer</h2>
         <p class="status"><span id="printer-dot" class="dot" aria-hidden="true"></span><span id="printer-status">Not connected</span></p>
         <dl id="printer-details" hidden>
@@ -26,7 +26,7 @@
         </div>
       </section>
 
-      <section aria-labelledby="labels-heading" class="card">
+      <section aria-labelledby="labels-heading" class="card labels-card">
         <h2 id="labels-heading">Labels</h2>
         <p id="label-size-info" class="muted"></p>
         <p id="size-warning" class="inline-warning" hidden></p>
@@ -43,7 +43,7 @@
         <input type="file" id="file" accept="application/pdf" class="visually-hidden" />
       </section>
 
-      <section aria-labelledby="print-heading" class="card">
+      <section aria-labelledby="print-heading" class="card print-card">
         <h2 id="print-heading" class="visually-hidden">Print</h2>
         <div id="notice" role="status" aria-live="polite"></div>
         <div id="decision" class="decision" hidden>
@@ -63,7 +63,7 @@
         </div>
       </section>
 
-      <details class="card">
+      <details class="card settings-card">
         <summary>Advanced settings</summary>
         <div class="settings">
           <label for="label-size">Label size</label>
