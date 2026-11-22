@@ -38,3 +38,6 @@ RESEARCH.md
 
 # Local test PDFs (real Square data — never commit)
 fixtures/
+
+# Chrome Web Store listing drafts and images
+store/

@@ -19,6 +19,38 @@ If something goes wrong, printing pauses and says why (out of labels, cover open
 
 The LabelWriter 550 only prints on genuine DYMO labels.
 
+## Compatibility
+
+**Printer:** DYMO LabelWriter 550, connected by USB. This is the only model it has been tested with.
+
+**Labels:** genuine DYMO single die-cut paper labels in these sizes, detected automatically from the roll. **Tested on paper: 30336.** The others are supported by the driver but untested.
+
+| DYMO part number | Label | Size (W × L) |
+|---|---|---|
+| **30336**, 1976411 | Small Multipurpose (default) | 25 × 54 mm (1" × 2⅛") |
+| 30330, 30578 | Return Address | 19 × 51 mm |
+| 30251, 30252, 30254, 30320, 30340 | Address | 28 × 89 mm |
+| 30321 | Large Address | 36 × 89 mm |
+| 30323 | Shipping | 54 × 102 mm |
+| 30256, 1763982, 1933088 | Large Shipping | 59 × 102 mm |
+| 1933087, 99019 | Lever Arch / Confirmation | 59 × 190 mm |
+| 30327 | File Folder | 14 × 87 mm |
+| 30332, 1933083 | Square | 25 × 25 mm |
+| 30334, 1933084 | Medium | 57 × 32 mm |
+| 11354, S0722540 | Removable Multi-Purpose | 57 × 32 mm |
+| 30324 | Large | 54 × 70 mm |
+| 30326 | Video Top | 46 × 79 mm |
+| 30370 | Removable | 51 × 59 mm |
+| 1933081 | Shelving | 25 × 89 mm |
+| 30374 | Appointment / Business Card | 51 × 89 mm |
+| 30347 | Book Spine | 25 × 38 mm |
+| 1933085 | Barcode / DYMO File | 19 × 64 mm |
+| 30857, 30911 | Name Badge | 57 × 102 mm |
+| 30856 | Name Badge, non-adhesive | 62 × 106 mm |
+| 30373 | Price Tag | 24 × 22 mm |
+
+Not supported: two-across rolls (e.g. 30333, 30299), continuous rolls, D1 tape, and non-DYMO labels.
+
 ## Install on the Chromebook
 
 No Linux and no ChromeOS Developer Mode needed.
