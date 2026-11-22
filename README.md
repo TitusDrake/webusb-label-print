@@ -4,7 +4,7 @@ Chrome extension that prints Square Dashboard barcode labels directly to a DYMO 
 
 Everything runs on the Chromebook. The label PDF is downloaded from Square using your existing login and is never sent anywhere else.
 
-**Status:** prints real Square labels on a LabelWriter 550 from desktop Chrome; **not yet tested on the Chromebook.** Printing uses the open-source [thermal-label](https://github.com/thermal-label/labelwriter) LabelWriter driver.
+**Status:** prints real Square labels on a LabelWriter 550 from desktop Chrome and a Chromebook. Printing uses the open-source [thermal-label](https://github.com/thermal-label/labelwriter) LabelWriter driver.
 
 ## Printing labels
 

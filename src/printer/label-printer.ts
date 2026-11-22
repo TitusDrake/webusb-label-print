@@ -97,7 +97,7 @@ export class LabelPrinter {
       model: adapter.model,
       ...(firmware ? { firmware } : {}),
       ...(sku ? { roll: sku } : {}),
-      problems: status.errors.map(e => e.message),
+      problems: status.errors.map(describeProblem),
       supported,
     };
   }
@@ -142,7 +142,7 @@ export class LabelPrinter {
       throw new NotSentError(`The printer did not respond (${errorText(err)})`);
     }
     const problem = status.errors[0];
-    if (problem) throw new NotSentError(problem.message);
+    if (problem) throw new NotSentError(describeProblem(problem));
 
     try {
       // Explicit media + rotation: the driver's NFC-derived media carries no orientation hint.
@@ -151,7 +151,7 @@ export class LabelPrinter {
       const message = errorText(err);
       // The driver's own pre-send checks (print lock, status errors) throw these before any raster bytes.
       if (message.startsWith('Cannot print on') || message.startsWith('Print lock on')) {
-        throw new NotSentError(message);
+        throw new NotSentError(message.includes('(printer_error)') ? INTERRUPTED : message);
       }
       this.needsReset = true;
       throw err;
@@ -187,6 +187,21 @@ export class LabelPrinter {
   private notify(): void {
     for (const fn of this.listeners) fn();
   }
+}
+
+const INTERRUPTED = 'The printer was interrupted (unplugged or turned off). Check that it is plugged in and turned on, then try again.';
+
+/**
+ * Staff-facing text for a printer problem. The driver's messages for cover/roll/jam are already
+ * plain; its generic `printer_error` ("Printer reported error ID 0x00001000", seen after unplugging
+ * mid-job) is not, so replace it and keep the raw text in the log.
+ */
+export function describeProblem(problem: { code: string; message: string }): string {
+  if (problem.code === 'printer_error') {
+    log(`printer error: ${problem.message}`);
+    return INTERRUPTED;
+  }
+  return problem.message;
 }
 
 function errorText(err: unknown): string {

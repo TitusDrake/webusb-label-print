@@ -15,6 +15,8 @@ interface FakeDevice extends USBDevice {
   writes: Uint8Array[];
   openCount: number;
   bayStatus: number;
+  printStatus: number;
+  errorId: number;
   failWrites: boolean;
 }
 
@@ -26,6 +28,8 @@ function fakeLw550(): FakeDevice {
     writes: [] as Uint8Array[],
     openCount: 0,
     bayStatus: 8, // media present, ok
+    printStatus: 0, // idle
+    errorId: 0,
     failWrites: false,
     get opened() {
       return opened;
@@ -63,7 +67,9 @@ function fakeLw550(): FakeDevice {
     async transferIn() {
       // Every request gets a 32-byte 550 status frame; byte 10 is the bay status.
       const status = new Uint8Array(32);
+      status[0] = device.printStatus;
       status[10] = device.bayStatus;
+      new DataView(status.buffer).setUint32(23, device.errorId, true);
       return { data: new DataView(status.buffer), status: 'ok' };
     },
   };
@@ -144,6 +150,19 @@ describe('LabelPrinter with a simulated LabelWriter 550', () => {
     expect(err).toBeInstanceOf(NotSentError);
     expect((err as Error).message).toMatch(/label roll/i);
     expect(indexOfSeq(allBytes(device), [ESC, 0x73])).toBe(-1); // no job started
+  });
+
+  it('explains an interrupted job in plain language instead of an error ID', async () => {
+    await printer.reconnect();
+    device.printStatus = 2; // error
+    device.errorId = 0x1000; // seen after unplugging mid-job
+    expect((await printer.info()).problems).toEqual([
+      'The printer was interrupted (unplugged or turned off). Check that it is plugged in and turned on, then try again.',
+    ]);
+    const err = await printer.printLabel(whiteLandscapeLabel(), TARGET_MEDIA, settings).catch(e => e);
+    expect(err).toBeInstanceOf(NotSentError);
+    expect((err as Error).message).toMatch(/interrupted/);
+    expect((err as Error).message).not.toMatch(/0x/);
   });
 
   it('treats a failure mid-job as uncertain and reopens the connection before the next label', async () => {
