@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Label Printer</title>
+    <link rel="stylesheet" href="print.css" />
+    <script type="module" src="print.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Label Printer</h1>
+
+      <section aria-labelledby="printer-heading" class="card">
+        <h2 id="printer-heading">Printer</h2>
+        <p class="status"><span id="printer-dot" class="dot" aria-hidden="true"></span><span id="printer-status">Not connected</span></p>
+        <dl id="printer-details" hidden>
+          <div><dt>Model</dt><dd id="printer-model"></dd></div>
+          <div><dt>Labels loaded</dt><dd id="printer-media"></dd></div>
+        </dl>
+        <p id="printer-problem" class="inline-warning" hidden></p>
+        <div class="row">
+          <button type="button" id="connect">Connect printer</button>
+          <button type="button" id="test" hidden>Print test label</button>
+          <button type="button" id="disconnect" class="quiet" hidden>Disconnect</button>
+        </div>
+      </section>
+
+      <section aria-labelledby="labels-heading" class="card">
+        <h2 id="labels-heading">Labels</h2>
+        <p id="label-size-info" class="muted"></p>
+        <p id="size-warning" class="inline-warning" hidden></p>
+        <p id="source">No labels yet. In Square, click <strong>Print Labels</strong>, then click this extension's icon on the PDF tab.</p>
+        <figure id="preview-wrap" hidden>
+          <div class="preview-frame"><canvas id="preview" aria-label="Preview of the label as it will print"></canvas></div>
+          <figcaption>
+            <button type="button" id="prev" class="quiet" aria-label="Previous label">‹</button>
+            <span id="preview-label" aria-live="polite"></span>
+            <button type="button" id="next" class="quiet" aria-label="Next label">›</button>
+          </figcaption>
+        </figure>
+        <label class="file-button quiet" for="file">Open a PDF file…</label>
+        <input type="file" id="file" accept="application/pdf" class="visually-hidden" />
+      </section>
+
+      <section aria-labelledby="print-heading" class="card">
+        <h2 id="print-heading" class="visually-hidden">Print</h2>
+        <div id="notice" role="status" aria-live="polite"></div>
+        <div id="decision" class="decision" hidden>
+          <p id="decision-text"></p>
+          <div class="row">
+            <button type="button" id="did-print">Yes, it printed</button>
+            <button type="button" id="reprint">No, print it again</button>
+          </div>
+        </div>
+        <div id="progress-wrap" hidden>
+          <progress id="progress" max="1" value="0"></progress>
+          <p id="progress-text"></p>
+        </div>
+        <div class="row">
+          <button type="button" id="print" class="primary" disabled>Print</button>
+          <button type="button" id="cancel" hidden>Stop after this label</button>
+        </div>
+      </section>
+
+      <details class="card">
+        <summary>Advanced settings</summary>
+        <div class="settings">
+          <label for="label-size">Label size</label>
+          <select id="label-size">
+            <option value="auto">Automatic (read from the roll)</option>
+          </select>
+          <label for="fit">Fit to label</label>
+          <select id="fit">
+            <option value="shrink">Shrink to fit (nothing cut off)</option>
+            <option value="trim-leading">Full size, trim leading edge</option>
+          </select>
+          <label for="rotate">Rotation</label>
+          <select id="rotate">
+            <option value="90">Normal</option>
+            <option value="270">Upside down</option>
+          </select>
+          <label for="density">Darkness</label>
+          <select id="density">
+            <option value="light">Light</option>
+            <option value="medium">Medium</option>
+            <option value="normal">Normal</option>
+            <option value="high">Dark</option>
+          </select>
+        </div>
+      </details>
+    </main>
+  </body>
+</html>

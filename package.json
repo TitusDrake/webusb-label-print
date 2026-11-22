@@ -1,0 +1,26 @@
+{
+  "name": "webusb-label-print",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Chrome MV3 extension that prints Square label PDFs to a DYMO LabelWriter 550 over WebUSB",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "package": "node scripts/build.mjs && node scripts/package.mjs",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@thermal-label/labelwriter-core": "0.6.4",
+    "@thermal-label/labelwriter-web": "0.6.4",
+    "pdfjs-dist": "6.5.438"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.1.43",
+    "@types/w3c-web-usb": "^1.0.14",
+    "esbuild": "^0.28.2",
+    "typescript": "~5.9.0",
+    "vitest": "^5.1.1"
+  }
+}

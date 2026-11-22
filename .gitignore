@@ -34,3 +34,7 @@ coverage/
 # Private agent context
 CLAUDE.md
 AGENTS.md
+RESEARCH.md
+
+# Local test PDFs (real Square data — never commit)
+fixtures/
