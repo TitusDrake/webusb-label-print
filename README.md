@@ -23,8 +23,8 @@ The LabelWriter 550 only prints on genuine DYMO labels.
 
 No Linux and no ChromeOS Developer Mode needed.
 
-1. Copy `webusb-label-print-<version>.zip` to the Chromebook (Google Drive, USB stick, or email).
-2. In the **Files** app, open the zip and copy the `webusb-label-print` folder into **My files › Downloads**. Keep the folder there; Chrome loads the extension from it.
+1. On the Chromebook, download `webusb-label-print-<version>.zip` from the latest [GitHub release](https://github.com/TitusDrake/webusb-label-print/releases/latest) (or copy it over by Google Drive or USB stick).
+2. In the **Files** app, make a new folder `webusb-label-print` in **My files › Downloads**. Double-click the zip to open it, select everything inside (Ctrl+A), copy (Ctrl+C), and paste (Ctrl+V) into the new folder. Keep the folder there; Chrome loads the extension from it.
 3. Go to `chrome://extensions`, turn on **Developer mode** (top right), click **Load unpacked**, and pick that folder.
 4. Click the puzzle-piece icon in Chrome's toolbar and **pin** WebUSB Label Print.
 
