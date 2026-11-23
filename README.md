@@ -53,7 +53,9 @@ Not supported: two-across rolls (e.g. 30333, 30299), continuous rolls, D1 tape, 
 
 ## Install on the Chromebook
 
-No Linux and no ChromeOS Developer Mode needed.
+**Easiest: Chrome Web Store.** Open [WebUSB Label Print on the Chrome Web Store](https://chromewebstore.google.com/detail/webusb-label-print/bjmgocfnnncpggigphcolnnjajeamjnn), click **Add to Chrome**, then pin the icon (puzzle-piece icon → pin). Updates install automatically.
+
+**Or from the GitHub zip** (no Linux and no ChromeOS Developer Mode needed):
 
 1. On the Chromebook, download `webusb-label-print-<version>.zip` from the latest [GitHub release](https://github.com/TitusDrake/webusb-label-print/releases/latest) (or copy it over by Google Drive or USB stick).
 2. In the **Files** app, make a new folder `webusb-label-print` in **My files › Downloads**. Double-click the zip to open it, select everything inside (Ctrl+A), copy (Ctrl+C), and paste (Ctrl+V) into the new folder. Keep the folder there; Chrome loads the extension from it.
@@ -71,6 +73,8 @@ If **Developer mode** is greyed out, the Chromebook is managed by an organizatio
 Chrome remembers the printer; after this it connects automatically. This must be done on the Chromebook itself, not on another computer.
 
 ## Update
+
+The Chrome Web Store version updates itself. For the GitHub zip install:
 
 1. Replace the contents of the same `webusb-label-print` folder with the new version's files. Using the same folder keeps the printer pairing and saved progress.
 2. Go to `chrome://extensions` and click the reload ↻ button on WebUSB Label Print.
